@@ -4,8 +4,9 @@ services:
     name: college-cash-swap-backend
     env: node
     plan: free
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    rootDir: ./backend
+    buildCommand: npm install
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -34,12 +35,10 @@ services:
       - key: RATE_LIMIT_MAX_REQUESTS
         value: 100
 
-  # Frontend Static Site (React / Vue / Angular)
-  - type: web
+  # Frontend Static Site
+  - type: static
     name: college-cash-swap-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/build
+    staticPublishPath: ./frontend
     envVars:
       - key: API_BASE_URL
         value: https://college-cash-swap-backend.onrender.com
