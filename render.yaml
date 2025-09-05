@@ -35,8 +35,9 @@ services:
         value: 100
 
   # Frontend Static Site (React / Vue / Angular)
-  - type: static
+  - type: web
     name: college-cash-swap-frontend
+    env: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/build
     envVars:
