@@ -34,11 +34,11 @@ services:
       - key: RATE_LIMIT_MAX_REQUESTS
         value: 100
 
-  # Frontend Static Site
+  # Frontend Static Site (React / Vue / Angular)
   - type: static
     name: college-cash-swap-frontend
-    buildCommand: echo "No build needed for static frontend"
-    staticPublishPath: ./frontend
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
     envVars:
       - key: API_BASE_URL
         value: https://college-cash-swap-backend.onrender.com
