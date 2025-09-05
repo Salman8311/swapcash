@@ -1,0 +1,44 @@
+services:
+  # Backend API Service
+  - type: web
+    name: college-cash-swap-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false  # Set this in Render dashboard
+      - key: JWT_SECRET
+        sync: false  # Set this in Render dashboard  
+      - key: EMAIL_USER
+        sync: false  # Set this in Render dashboard
+      - key: EMAIL_PASS
+        sync: false  # Set this in Render dashboard
+      - key: ALLOWED_ORIGINS
+        value: https://college-cash-swap-frontend.onrender.com
+      - key: TRUST_PROXY
+        value: true
+      - key: HELMET_ENABLED
+        value: true
+      - key: OTP_EXPIRY_MINUTES
+        value: 5
+      - key: OTP_MAX_ATTEMPTS
+        value: 3
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+
+  # Frontend Static Site
+  - type: static
+    name: college-cash-swap-frontend
+    buildCommand: echo "No build needed for static frontend"
+    staticPublishPath: ./frontend
+    envVars:
+      - key: API_BASE_URL
+        value: https://college-cash-swap-backend.onrender.com

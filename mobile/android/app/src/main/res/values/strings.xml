@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">College Cash Swap</string>
+    <string name="title_activity_main">College Cash Swap</string>
+    <string name="package_name">com.college.cash.swap</string>
+    <string name="custom_url_scheme">com.college.cash.swap</string>
+</resources>

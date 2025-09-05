@@ -1,0 +1,20 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cap:init": "node scripts/cap-init.js",
+    "cap:sync": "cap sync",
+    "android": "cap open android",
+    "build:web": "node scripts/copy-frontend.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  }
+}

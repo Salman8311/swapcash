@@ -1,0 +1,28 @@
+const mongoose = require('mongoose');
+
+const requestSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  have: String, // 'cash' or 'digital'
+  want: String, // opposite of have
+  amount: Number,
+  postedAt: { type: Date, default: Date.now },
+
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true
+    }
+  }
+});
+
+// Enable GeoSpatial indexing for distance queries
+requestSchema.index({ location: '2dsphere' });
+
+module.exports = mongoose.model('Request', requestSchema);
+

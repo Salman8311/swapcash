@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Matches - Community Cash Swap</title>
+</head>
+<body>
+  <h2>Find Matching Requests Near You</h2>
+
+  <label>Email:</label><br>
+  <input type="email" id="email" required><br><br>
+
+  <button id="findBtn">Find Matches</button>
+
+  <ul id="results"></ul>
+
+  <script src="config.js"></script>
+  <script>
+    document.getElementById('findBtn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+
+      if (!email) {
+        alert("Please enter your email.");
+        return;
+      }
+
+      // Get location
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const latitude = pos.coords.latitude;
+        const longitude = pos.coords.longitude;
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/find-matches`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, latitude, longitude })
+          });
+
+          const data = await res.json();
+          const resultsList = document.getElementById('results');
+          resultsList.innerHTML = "";
+
+          if (data.length === 0) {
+            resultsList.innerHTML = "<li>No nearby matching requests found.</li>";
+          } else {
+            data.forEach(req => {
+              const li = document.createElement('li');
+              li.textContent = `${req.name} wants ${req.want} for ₹${req.amount}`;
+              resultsList.appendChild(li);
+            });
+          }
+
+        } catch (err) {
+          console.error("❌ Error fetching matches:", err);
+          alert("Error contacting server. Please try again.");
+        }
+      }, (error) => {
+        console.error("⚠️ Location error:", error);
+        alert("Location access is needed to find matches.");
+      });
+    });
+  </script>
+</body>
+</html>

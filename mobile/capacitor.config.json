@@ -1,0 +1,8 @@
+{
+  "appId": "com.college.cash.swap",
+  "appName": "College Cash Swap",
+  "webDir": "A:/college-cash-swap/frontend",
+  "server": {
+    "androidScheme": "https"
+  }
+}

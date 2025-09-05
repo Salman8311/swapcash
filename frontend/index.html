@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Cash Swap - Exchange Cash & Digital Money</title>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .how-it-works {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">💰 College Cash Swap</div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="login.html" id="loginLink">Login</a>
+                <a href="signup.html" id="signupLink">Sign Up</a>
+                <a href="request.html" id="requestLink" style="display: none;">Post Request</a>
+                <a href="requests.html" id="browseLink" style="display: none;">Browse</a>
+                <a href="chat.html" id="chatLink" style="display: none;">Chat</a>
+                <a href="#" onclick="logout()" id="logoutLink" style="display: none; color: #dc3545;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Exchange Cash & Digital Money Instantly</h1>
+            <p>Connect with students nearby to swap cash for digital payments or vice versa. Safe, secure, and convenient!</p>
+            <div class="cta-buttons" id="ctaButtons">
+                <a href="signup.html" class="btn btn-primary" id="getStartedBtn">Get Started</a>
+                <a href="request.html" class="btn btn-secondary" id="postRequestBtn" style="display: none;">Post Request</a>
+                <a href="chat.html" class="btn btn-secondary" id="startChatBtn" style="display: none;">💬 Start Chatting</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose College Cash Swap?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Safe</h3>
+                    <p>OTP verification and secure authentication ensure your transactions are protected.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location Based</h3>
+                    <p>Find matches within 10km radius using advanced geolocation technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Matching</h3>
+                    <p>Get matched with compatible users in real-time for quick exchanges.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Built-in Chat</h3>
+                    <p>Chat directly with your matches to coordinate exchanges safely and easily.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create your account with email verification and OTP</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Post Request</h3>
+                    <p>Specify what you have and what you want to exchange</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Find Matches</h3>
+                    <p>Get connected with nearby users for instant exchange</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Chat & Coordinate</h3>
+                    <p>Use our built-in chat to arrange meeting points and exchange details</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 College Cash Swap. Making student life easier, one swap at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update navigation based on authentication status
+        function updateNavigation() {
+            const isLoggedIn = isAuthenticated();
+            const loginLink = document.getElementById('loginLink');
+            const signupLink = document.getElementById('signupLink');
+            const requestLink = document.getElementById('requestLink');
+            const browseLink = document.getElementById('browseLink');
+            const chatLink = document.getElementById('chatLink');
+            const logoutLink = document.getElementById('logoutLink');
+            
+            // CTA buttons
+            const getStartedBtn = document.getElementById('getStartedBtn');
+            const postRequestBtn = document.getElementById('postRequestBtn');
+            const startChatBtn = document.getElementById('startChatBtn');
+
+            if (isLoggedIn) {
+                // Hide login/signup, show authenticated features
+                loginLink.style.display = 'none';
+                signupLink.style.display = 'none';
+                requestLink.style.display = 'inline';
+                browseLink.style.display = 'inline';
+                chatLink.style.display = 'inline';
+                logoutLink.style.display = 'inline';
+                
+                // Update CTA buttons
+                getStartedBtn.style.display = 'none';
+                postRequestBtn.style.display = 'inline';
+                startChatBtn.style.display = 'inline';
+            } else {
+                // Show login/signup, hide authenticated features
+                loginLink.style.display = 'inline';
+                signupLink.style.display = 'inline';
+                requestLink.style.display = 'none';
+                browseLink.style.display = 'none';
+                chatLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+                
+                // Update CTA buttons
+                getStartedBtn.style.display = 'inline';
+                postRequestBtn.style.display = 'none';
+                startChatBtn.style.display = 'none';
+            }
+        }
+
+        // Update navigation when page loads
+        updateNavigation();
+    </script>
+</body>
+</html> 
