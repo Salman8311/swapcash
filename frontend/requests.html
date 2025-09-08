@@ -4,176 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Requests - College Cash Swap</title>
+    <script src="config.js"></script>
     <script src="auth.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        .main-content {
-            padding: 120px 0 80px;
-        }
-
-        .page-title {
-            text-align: center;
-            color: white;
-            margin-bottom: 3rem;
-        }
-
-        .page-title h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .page-title p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .requests-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow-x: auto;
-        }
-
-        .requests-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .requests-table th,
-        .requests-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e1e5e9;
-        }
-
-        .requests-table th {
-            background: #667eea;
-            color: white;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-
-        .requests-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .amount-badge {
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .have-badge {
-            background: #28a745;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .want-badge {
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50%;
-            border-top-color: #667eea;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .no-requests {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            padding: 2rem;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        header{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:1rem 0;box-shadow:0 2px 20px rgba(0,0,0,.1);position:fixed;width:100%;top:0;z-index:1000}
+        nav{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:1.8rem;font-weight:bold;color:#667eea}
+        .nav-links{display:flex;gap:2rem}
+        .nav-links a{text-decoration:none;color:#333;font-weight:500;transition:color .3s}
+        .nav-links a:hover{color:#667eea}
+        .main-content{padding:120px 0 80px}
+        .page-title{text-align:center;color:white;margin-bottom:3rem}
+        .page-title h1{font-size:3rem;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
+        .page-title p{font-size:1.2rem;opacity:.9}
+        .requests-container{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-radius:20px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.1);overflow-x:auto}
+        .requests-table{width:100%;border-collapse:collapse;margin-top:1rem}
+        .requests-table th,.requests-table td{padding:1rem;text-align:left;border-bottom:1px solid #e1e5e9}
+        .requests-table th{background:#667eea;color:white;font-weight:600;position:sticky;top:0}
+        .requests-table tr:hover{background:#f8f9fa}
+        .amount-badge{background:#667eea;color:white;padding:4px 12px;border-radius:20px;font-size:.9rem;font-weight:600}
+        .have-badge{background:#28a745;color:white;padding:4px 12px;border-radius:20px;font-size:.9rem;font-weight:600}
+        .want-badge{background:#ffc107;color:#212529;padding:4px 12px;border-radius:20px;font-size:.9rem;font-weight:600}
+        .loading{text-align:center;padding:2rem;color:#666}
+        .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(102,126,234,.3);border-radius:50%;border-top-color:#667eea;animation:spin 1s linear infinite;margin-right:10px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .no-requests{text-align:center;color:#666;font-style:italic;padding:2rem}
+        .error-text{color:#dc3545;padding:1rem}
+        @media (max-width:768px){.page-title h1{font-size:2rem}}
     </style>
 </head>
 <body>
@@ -202,7 +62,7 @@
                     <span>Loading requests...</span>
                 </div>
                 
-                <table id="requestsTable" class="requests-table" style="display: none;">
+                <table id="requestsTable" class="requests-table" style="display:none;">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -213,64 +73,119 @@
                             <th>Posted At</th>
                         </tr>
                     </thead>
-                    <tbody id="requestsTableBody">
-                    </tbody>
+                    <tbody id="requestsTableBody"></tbody>
                 </table>
 
-                <div id="noRequests" class="no-requests" style="display: none;">
+                <div id="noRequests" class="no-requests" style="display:none;">
                     No requests found. Be the first to post one!
                 </div>
+
+                <div id="errorBox" class="error-text" style="display:none;"></div>
             </div>
         </div>
     </main>
 
-    <script src="config.js"></script>
     <script>
-        // Check authentication on page load
-        if (!requireAuth()) {
-            // This will redirect to login, so we can stop execution
-            throw new Error('Authentication required');
-        }
+        // safe API fallback
+        const API = (typeof API_BASE_URL !== 'undefined' && API_BASE_URL) ? API_BASE_URL.replace(/\/$/, '') : location.origin;
 
-        async function fetchRequests() {
-            try {
-                const res = await fetchWithAuth(`${API_BASE_URL}/requests`);
-                const data = await res.json();
-                
-                const loading = document.getElementById('loading');
-                const table = document.getElementById('requestsTable');
-                const tableBody = document.getElementById('requestsTableBody');
-                const noRequests = document.getElementById('noRequests');
-                
-                loading.style.display = 'none';
-                
-                if (data.length === 0) {
-                    noRequests.style.display = 'block';
-                    return;
+        // require auth; if not authenticated, requireAuth() will perform redirect; stop further execution gracefully
+        try {
+            if (typeof requireAuth === 'function') {
+                const ok = requireAuth();
+                if (!ok) {
+                    console.warn('Not authenticated — redirecting to login.');
+                    // stop initialization (requireAuth already redirected)
+                    throw 'auth-redirect';
                 }
-                
-                table.style.display = 'table';
-                
-                data.forEach(req => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${req.name || 'Anonymous'}</td>
-                        <td>${req.email || 'Hidden'}</td>
-                        <td><span class="have-badge">${req.have === 'cash' ? '💵 Cash' : '💳 Digital'}</span></td>
-                        <td><span class="want-badge">${req.want === 'cash' ? '💵 Cash' : '💳 Digital'}</span></td>
-                        <td><span class="amount-badge">₹${req.amount}</span></td>
-                        <td>${new Date(req.postedAt).toLocaleString()}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching requests:', error);
-                document.getElementById('loading').innerHTML = '<span style="color: #dc3545;">Error loading requests. Please try again.</span>';
+            }
+        } catch (e) {
+            if (e === 'auth-redirect') {
+                // quit silently
+                return;
+            } else {
+                console.warn('requireAuth threw:', e);
             }
         }
 
-        // Fetch requests when page loads
+        async function fetchRequests() {
+            const loadingEl = document.getElementById('loading');
+            const table = document.getElementById('requestsTable');
+            const tableBody = document.getElementById('requestsTableBody');
+            const noRequests = document.getElementById('noRequests');
+            const errorBox = document.getElementById('errorBox');
+
+            // reset UI state
+            loadingEl.style.display = 'block';
+            table.style.display = 'none';
+            noRequests.style.display = 'none';
+            errorBox.style.display = 'none';
+            tableBody.innerHTML = '';
+
+            try {
+                // fetchWithAuth should attach JWT via auth.js helper
+                const res = (typeof fetchWithAuth === 'function')
+                    ? await fetchWithAuth(`${API}/requests`)
+                    : await fetch(`${API}/requests`);
+
+                if (!res.ok) {
+                    const errBody = await res.json().catch(()=>null);
+                    const msg = errBody && errBody.message ? errBody.message : `Server responded with status ${res.status}`;
+                    throw new Error(msg);
+                }
+
+                const data = await res.json().catch(()=>null);
+
+                loadingEl.style.display = 'none';
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    noRequests.style.display = 'block';
+                    return;
+                }
+
+                // populate table
+                table.style.display = 'table';
+                data.forEach(req => {
+                    const row = document.createElement('tr');
+
+                    const name = req.name || 'Anonymous';
+                    const email = req.email || 'Hidden';
+                    const have = req.have === 'cash' ? '💵 Cash' : (req.have === 'digital' ? '💳 Digital' : (req.have || '—'));
+                    const want = req.want === 'cash' ? '💵 Cash' : (req.want === 'digital' ? '💳 Digital' : (req.want || '—'));
+                    const amount = (typeof req.amount === 'number' || !isNaN(Number(req.amount))) ? `₹${req.amount}` : '—';
+                    const posted = req.postedAt ? new Date(req.postedAt).toLocaleString() : '—';
+
+                    row.innerHTML = `
+                        <td>${escapeHtml(name)}</td>
+                        <td>${escapeHtml(email)}</td>
+                        <td><span class="have-badge">${escapeHtml(have)}</span></td>
+                        <td><span class="want-badge">${escapeHtml(want)}</span></td>
+                        <td><span class="amount-badge">${escapeHtml(amount)}</span></td>
+                        <td>${escapeHtml(posted)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error('Error fetching requests:', err);
+                loadingEl.style.display = 'none';
+                document.getElementById('noRequests').style.display = 'none';
+                const errorBox = document.getElementById('errorBox');
+                errorBox.textContent = err.message || 'Error loading requests. Please try again.';
+                errorBox.style.display = 'block';
+            }
+        }
+
+        // minimal escape to avoid injecting HTML
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return String(str);
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+            });
+        }
+
+        // run on load
         fetchRequests();
     </script>
 </body>
 </html>
+
